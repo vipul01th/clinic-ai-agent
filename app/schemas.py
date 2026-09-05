@@ -1,32 +1,33 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import date, time
-from typing import Optional
 
-# ---- Patient Schemas ----
 class PatientCreate(BaseModel):
     name: str
     phone: str
 
-class PatientResponse(PatientCreate):
+class PatientResponse(BaseModel):
     id: int
-    
-    class Config:
-        from_attributes = True
+    name: str
+    phone: str
 
-# ---- Appointment Schemas ----
+    # Pydantic V2 ka naya tarika
+    model_config = ConfigDict(from_attributes=True)
+
 class AppointmentCreate(BaseModel):
+    patient_id: int
+    appt_date: date
+    appt_time: time
+
+class AppointmentResponse(BaseModel):
+    id: int
     patient_id: int
     date: date
     time: time
-
-class AppointmentReschedule(BaseModel):
-    date: date
-    time: time
-    status: str = "rescheduled"
-
-class AppointmentResponse(AppointmentCreate):
-    id: int
     status: str
-    
-    class Config:
-        from_attributes = True
+
+    # Pydantic V2 ka naya tarika
+    model_config = ConfigDict(from_attributes=True)
+
+class AvailabilityResponse(BaseModel):
+    available: bool
+    message: str
