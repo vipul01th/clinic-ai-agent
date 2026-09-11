@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 models.Base.metadata.create_all(bind=engine)
 
 logging.basicConfig(
-    filename="clinic_api.log",  # Is file mein saare errors save honge
+    filename="clinic_api.log",  
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
